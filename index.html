@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Countryballs Game</title>
+	<link rel="icon" href="Images/icon/icon.ico" type="image/x-icon"/>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-image: url('Images/wallpaper/green_field.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+        .countryball {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            position: absolute;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Countryball Catch!</h1>
+    <p>Click the countryballs to earn points!</p>
+    <p>Score: <span id="score">0</span></p>
+    
+    <script>
+        let score = 0;
+
+        function createCountryball(imageSrc) {
+            const countryball = document.createElement('img');
+            countryball.className = 'countryball';
+            countryball.style.left = Math.random() * (window.innerWidth - 100) + 'px';
+            countryball.style.top = Math.random() * (window.innerHeight - 100) + 'px';
+            countryball.src = imageSrc;
+            countryball.onclick = function() {
+                this.style.display = 'none';
+                score++;
+                document.getElementById('score').textContent = score;
+
+                if (score >= 100) {
+                    alert("Congratulations! You've reached the maximum score. The game will restart.");
+                    resetGame();
+                }
+            };
+            document.body.appendChild(countryball);
+        }
+
+        function resetGame() {
+            const countryballs = document.querySelectorAll('.countryball');
+            for (const countryball of countryballs) {
+                countryball.remove();
+            }
+
+            score = 0;
+            document.getElementById('score').textContent = score;
+
+            startSpawning();
+        }
+
+        function startSpawning() {
+            setInterval(function() {
+            createCountryball('Images/balls/countryball1.png');
+            }, 1500);
+			setInterval(function() {
+            createCountryball('Images/balls/countryball2.png');
+            }, 2000);
+			setInterval(function() {
+            createCountryball('Images/balls/countryball3.png');
+            }, 2500);
+			setInterval(function() {
+            createCountryball('Images/balls/countryball4.png');
+            }, 3000);
+			setInterval(function() {
+            createCountryball('Images/balls/countryball5.png');
+            }, 3500);
+        }
+
+        startSpawning();
+
+    </script>
+</body>
+</html>
